@@ -143,6 +143,6 @@ ghcr.io/trexterx17/ci-cd_deploy-api:latest
 Pull and run it with:
 
 ```bash
-docker pull ghcr.io/<your-github-username>/ipinfo-api:latest
-docker run -p 5000:5000 ghcr.io/<your-github-username>/ipinfo-api:latest
+docker pull ghcr.io/trexterx17/ci-cd_deploy-api:latest
+docker run -p 5000:5000 ghcr.io/trexterx17/ci-cd_deploy-api:latest
 ```
