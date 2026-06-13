@@ -137,7 +137,7 @@ A few things I'd configure in the repository settings that go beyond the workflo
 The latest image is published to GitHub Container Registry on each push to `main`:
 
 ```
-ghcr.io/<your-github-username>/ipinfo-api:latest
+ghcr.io/trexterx17/ci-cd_deploy-api:latest
 ```
 
 Pull and run it with:
