@@ -112,11 +112,14 @@ ruff check .
 
 ## Repository Settings Worth Noting
 
-A few things I'd configure in the repository settings that go beyond the workflow files:
+Beyond the workflow files themselves, I configured two additional security measures at the repository level:
 
-- **Branch protection on `main`** — require status checks to pass before merging, and require at least one reviewer on PRs. This prevents bypassing the pipeline by pushing directly.
+- **Branch protection on `main`** — a ruleset requires all five status checks (Run Tests, Lint & Format Check, Dependency Vulnerability Scan, Static Analysis (Bandit), Detect Leaked Secrets (Gitleaks)) to pass before any change can be merged into `main`. I verified this is actually enforced by attempting a direct push after enabling it — GitHub rejected the push with a `GH013` rule violation, confirming the pipeline's findings can't be bypassed.
+- **Dependabot** — `.github/dependabot.yml` is configured to check weekly for updates to Python dependencies (pip), the Dockerfile's base image, and the GitHub Actions versions used in the workflows. This means a vulnerability like the Flask CVE I found manually with `pip-audit` would now be surfaced automatically as a pull request, with the pipeline running against the proposed fix.
+
+A couple of additional things I'd consider adding with more time:
+
 - **GitHub secret scanning** — GitHub's built-in secret scanning can be enabled under Security settings. It runs in addition to Gitleaks and covers a broader set of token patterns for known services.
-- **Dependabot** — adds a `dependabot.yml` to get automated PRs when dependencies have new versions or known vulnerabilities, so the dependency-scan job doesn't catch something and leave it to sit.
 - **CODEOWNERS** — useful once there's a team; ensures the right people are automatically requested as reviewers for changes to sensitive files like workflow definitions.
 
 ---
